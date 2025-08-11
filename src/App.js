@@ -61,8 +61,22 @@ function App() {
     }
   };
 
+  const getWeatherBackgroundClass = (conditionText) => {
+    if (!conditionText) return 'bg-default';
+    const condition = conditionText.toLowerCase();
+    if (condition.includes('sun') || condition.includes('clear')) return 'bg-sunny';
+    if (condition.includes('rain')) return 'bg-rainy';
+    if (condition.includes('cloud') || condition.includes('overcast')) return 'bg-cloudy';
+    if (condition.includes('snow') || condition.includes('sleet') || condition.includes('ice')) return 'bg-snowy';
+    if (condition.includes('mist') || condition.includes('fog')) return 'bg-misty';
+    if (condition.includes('thunder')) return 'bg-thunder';
+    return 'bg-default';
+  };
+
+  const backgroundClass = weatherData ? getWeatherBackgroundClass(weatherData.current.condition.text) : 'bg-default';
+
   return (
-    <div className="App">
+    <div className={`App ${backgroundClass}`}>
       <header className="App-header">
         <h1>Weather App</h1>
         <SearchBar onSearch={fetchWeather} onGeolocate={handleGeolocate} />

@@ -1,8 +1,25 @@
 .App {
   text-align: center;
-  max-width: 800px;
+  max-width: 900px;
   margin: 0 auto;
   padding: 20px;
+  position: relative;
+  min-height: 100vh;
+  background-size: cover;
+  background-position: center;
+  transition: background-image 0.5s ease-in-out;
+  z-index: 1;
+}
+
+
+
+
+
+.App-header, .weather-card, .forecast-container, .air-quality {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .App-header {
@@ -15,7 +32,6 @@
 
 .App-header h1 {
   margin: 0;
-  color: #2c3e50;
   font-size: 2.5rem;
 }
 
@@ -53,6 +69,9 @@
   cursor: pointer;
   border-radius: 0 4px 4px 0;
   transition: background-color 0.3s;
+}
+.search-button svg {
+  vertical-align: middle;
 }
 
 .search-button:hover {
@@ -145,16 +164,37 @@
   text-transform: capitalize;
 }
 
-.weather-details {
+.weather-details-grid {
   margin-top: 1.5rem;
-  display: flex;
-  justify-content: space-around;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 1rem;
 }
 
-.weather-details p {
-  margin: 0.5rem;
-  font-size: 1rem;
+.detail-item-card {
+  background: #f9f9f9;
+  padding: 1rem;
+  border-radius: 8px;
+  text-align: center;
+  border: 1px solid #eee;
+}
+
+.detail-icon {
+  font-size: 2.5rem;
+  color: #4a90e2;
+  margin-bottom: 0.5rem;
+}
+
+.detail-label {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #7f8c8d;
+}
+
+.detail-value {
+  margin: 0.25rem 0 0 0;
+  font-size: 1.1rem;
+  font-weight: bold;
 }
 
 /* Forecast Styles */
@@ -261,20 +301,21 @@
 }
 
 .forecast-details-expanded .detail-item {
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
+  text-align: center;
 }
 
-.forecast-details-expanded .detail-item span:first-child {
+.forecast-details-expanded .detail-item svg {
+  font-size: 2rem;
+  color: #4a90e2;
+}
+
+.forecast-details-expanded .detail-item p {
+  margin: 0.2rem 0;
+}
+
+.forecast-details-expanded .detail-item p:nth-of-type(1) {
   font-size: 0.9rem;
   color: #7f8c8d;
-}
-
-.forecast-details-expanded .detail-item span:last-child {
-  font-weight: bold;
-  font-size: 1rem;
-  color: #34495e;
 }
 
 /* Air Quality Styles */
@@ -361,6 +402,10 @@
   border-radius: 4px;
   transition: background-color 0.3s, border-color 0.3s;
   line-height: 1;
+}
+.geolocate-button svg {
+  font-size: 1.5rem;
+  vertical-align: middle;
 }
 
 .geolocate-button:hover {

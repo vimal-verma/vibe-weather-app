@@ -1,9 +1,11 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import { FaSearch } from 'react-icons/fa';
+import { MdMyLocation } from 'react-icons/md';
 
 const API_KEY = process.env.REACT_APP_WEATHER_API_KEY;
 const AUTOCOMPLETE_URL = 'https://api.weatherapi.com/v1/search.json';
 
-const metroCities = ['New-Delhi', 'Mumbai', 'Kolkata', 'Chennai', 'Bangalore', 'Hyderabad', 'Pune', 'Ahmedabad'];
+const metroCities = ['New Delhi', 'Mumbai', 'Kolkata', 'Chennai', 'Bengaluru', 'Hyderabad', 'Pune', 'Ahmedabad'];
 
 function SearchBar({ onSearch, onGeolocate }) {
   const [location, setLocation] = useState('');
@@ -80,7 +82,7 @@ function SearchBar({ onSearch, onGeolocate }) {
               placeholder="Enter city name..."
               className="search-input"
             />
-            <button type="submit" className="search-button">Search</button>
+            <button type="submit" className="search-button" aria-label="Search"><FaSearch /></button>
           </form>
           {suggestions.length > 0 && isSuggestionsVisible && (
             <ul className="suggestions-list">
@@ -96,7 +98,7 @@ function SearchBar({ onSearch, onGeolocate }) {
           )}
         </div>
         <button onClick={onGeolocate} className="geolocate-button" title="Use my location">
-          📍
+          <MdMyLocation />
         </button>
       </div>
       <div className="metro-cities-container">

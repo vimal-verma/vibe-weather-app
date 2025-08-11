@@ -1,4 +1,13 @@
 import React from 'react';
+import {
+  WiHumidity,
+  WiStrongWind,
+  WiBarometer,
+  WiCloudy,
+  WiRaindrop,
+  WiDaySunny,
+} from 'react-icons/wi';
+import { MdVisibility } from 'react-icons/md';
 
 const getAqiInfo = (aqi) => {
   if (aqi === 1) return { level: 'Good', className: 'aqi-good' };
@@ -25,16 +34,37 @@ function WeatherCard({ data }) {
         <p className="temperature">{Math.round(current.temp_c)}°C</p>
       </div>
       <p className="condition">{current.condition.text}</p>
-      <div className="weather-details">
-        <p>Feels like: {Math.round(current.feelslike_c)}°C</p>
-        <p>Humidity: {current.humidity}%</p>
-        <p>Wind: {current.wind_kph} kph</p>
-        <p>Pressure: {current.pressure_mb} mb</p>
-        <p>Visibility: {current.vis_km} km</p>
-        <p>UV Index: {current.uv}</p>
-        <p>Cloud Cover: {current.cloud}%</p>
-        <p>Precipitation: {current.precip_mm} mm</p>
-        <p>Last updated: {new Date(current.last_updated).toLocaleTimeString()}</p>
+      <div className="weather-details-grid">
+        <div className="detail-item-card">
+          <WiHumidity className="detail-icon" />
+          <p className="detail-label">Humidity</p>
+          <p className="detail-value">{current.humidity}%</p>
+        </div>
+        <div className="detail-item-card">
+          <WiStrongWind className="detail-icon" />
+          <p className="detail-label">Wind Speed</p>
+          <p className="detail-value">{current.wind_kph} kph</p>
+        </div>
+        <div className="detail-item-card">
+          <WiBarometer className="detail-icon" />
+          <p className="detail-label">Pressure</p>
+          <p className="detail-value">{current.pressure_mb} mb</p>
+        </div>
+        <div className="detail-item-card">
+          <MdVisibility className="detail-icon" />
+          <p className="detail-label">Visibility</p>
+          <p className="detail-value">{current.vis_km} km</p>
+        </div>
+        <div className="detail-item-card">
+          <WiDaySunny className="detail-icon" />
+          <p className="detail-label">UV Index</p>
+          <p className="detail-value">{current.uv}</p>
+        </div>
+        <div className="detail-item-card">
+          <WiCloudy className="detail-icon" />
+          <p className="detail-label">Cloud Cover</p>
+          <p className="detail-value">{current.cloud}%</p>
+        </div>
       </div>
       {current.air_quality && (
         <div className="air-quality">

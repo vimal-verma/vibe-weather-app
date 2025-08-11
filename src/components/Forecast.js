@@ -1,4 +1,11 @@
 import React, { useState } from 'react';
+import {
+  WiStrongWind,
+  WiHumidity,
+  WiDaySunny,
+  WiRain,
+  WiSnow,
+} from 'react-icons/wi';
 
 function Forecast({ data }) {
   const [expandedIndex, setExpandedIndex] = useState(null);
@@ -32,24 +39,29 @@ function Forecast({ data }) {
             {expandedIndex === index && (
               <div className="forecast-details-expanded">
                 <div className="detail-item">
-                  <span>Max Wind</span>
-                  <span>{day.day.maxwind_kph} kph</span>
+                  <WiStrongWind />
+                  <p>Max Wind</p>
+                  <p>{day.day.maxwind_kph} kph</p>
                 </div>
                 <div className="detail-item">
-                  <span>Avg Humidity</span>
-                  <span>{day.day.avghumidity}%</span>
+                  <WiHumidity />
+                  <p>Avg Humidity</p>
+                  <p>{day.day.avghumidity}%</p>
                 </div>
                 <div className="detail-item">
-                  <span>UV Index</span>
-                  <span>{day.day.uv}</span>
+                  <WiDaySunny />
+                  <p>UV Index</p>
+                  <p>{day.day.uv}</p>
                 </div>
                 <div className="detail-item">
-                  <span>Chance of Rain</span>
-                  <span>{day.day.daily_chance_of_rain}%</span>
+                  <WiRain />
+                  <p>Rain Chance</p>
+                  <p>{day.day.daily_chance_of_rain}%</p>
                 </div>
                 <div className="detail-item">
-                  <span>Chance of Snow</span>
-                  <span>{day.day.daily_chance_of_snow}%</span>
+                  <WiSnow />
+                  <p>Snow Chance</p>
+                  <p>{day.day.daily_chance_of_snow}%</p>
                 </div>
               </div>
             )}
