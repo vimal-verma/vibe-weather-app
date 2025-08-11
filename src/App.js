@@ -36,6 +36,7 @@ function App() {
   useEffect(() => {
     // Fetch weather for user's location on initial load
     handleGeolocate();
+    // eslint-disable-next-line
   }, []); // Empty dependency array ensures this runs only once on mount
 
   const fetchWeather = async (location) => {
