@@ -5,6 +5,12 @@ import {
   WiDaySunny,
   WiRain,
   WiSnow,
+  WiSunrise,
+  WiSunset,
+  WiRaindrops,
+  WiMoonrise,
+  WiMoonset,
+  WiNightClear,
 } from 'react-icons/wi';
 
 function Forecast({ data }) {
@@ -62,6 +68,36 @@ function Forecast({ data }) {
                   <WiSnow />
                   <p>Snow Chance</p>
                   <p>{day.day.daily_chance_of_snow}%</p>
+                </div>
+                <div className="detail-item">
+                  <WiSunrise />
+                  <p>Sunrise</p>
+                  <p>{day.astro.sunrise}</p>
+                </div>
+                <div className="detail-item">
+                  <WiSunset />
+                  <p>Sunset</p>
+                  <p>{day.astro.sunset}</p>
+                </div>
+                <div className="detail-item">
+                  <WiRaindrops />
+                  <p>Precipitation</p>
+                  <p>{day.day.totalprecip_mm} mm</p>
+                </div>
+                <div className="detail-item">
+                  <WiMoonrise />
+                  <p>Moonrise</p>
+                  <p>{day.astro.moonrise}</p>
+                </div>
+                <div className="detail-item">
+                  <WiMoonset />
+                  <p>Moonset</p>
+                  <p>{day.astro.moonset}</p>
+                </div>
+                <div className="detail-item">
+                  <WiNightClear />
+                  <p>Moon Phase</p>
+                  <p>{day.astro.moon_phase}</p>
                 </div>
               </div>
             )}

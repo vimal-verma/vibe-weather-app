@@ -296,7 +296,7 @@
   background-color: #f0f2f5;
   border-top: 1px solid #e0e0e0;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
   gap: 1rem;
 }
 

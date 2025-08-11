@@ -5,7 +5,7 @@ import { MdMyLocation } from 'react-icons/md';
 const API_KEY = process.env.REACT_APP_WEATHER_API_KEY;
 const AUTOCOMPLETE_URL = 'https://api.weatherapi.com/v1/search.json';
 
-const metroCities = ['New Delhi', 'Mumbai', 'Kolkata', 'Chennai', 'Bengaluru', 'Hyderabad', 'Pune', 'Ahmedabad'];
+const metroCities = ['New Delhi', 'Mumbai', 'Kolkata', 'Chennai', 'Bengaluru', 'Hyderabad', 'Pune', 'Ahmedabad','Jaipur', 'Patna', 'Lucknow', 'Kanpur', 'Nagpur', 'Indore', 'Thane', 'Bhopal'];
 
 function SearchBar({ onSearch, onGeolocate }) {
   const [location, setLocation] = useState('');
