@@ -4,7 +4,6 @@ import {
   WiStrongWind,
   WiBarometer,
   WiCloudy,
-  WiRaindrop,
   WiDaySunny,
 } from 'react-icons/wi';
 import { MdVisibility } from 'react-icons/md';

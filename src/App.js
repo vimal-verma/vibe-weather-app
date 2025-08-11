@@ -78,7 +78,13 @@ function App() {
   return (
     <div className={`App ${backgroundClass}`}>
       <header className="App-header">
-        <h1>Weather App</h1>
+        <a href="/" className="header-logo-link">
+        <div className="header-title-container">
+          <img src="/icon.jpg" alt="Weather App Logo" className="app-logo" />
+          <h1>Weather App</h1>
+          <p>By Vimal</p>
+        </div>
+        </a>
         <SearchBar onSearch={fetchWeather} onGeolocate={handleGeolocate} />
       </header>
       <main>
@@ -96,6 +102,9 @@ function App() {
           </div>
         )}
       </main>
+      <footer className="app-footer">
+        <p>Made with ❤️ by Vimal &copy; {new Date().getFullYear()} Vibe Weather. All Rights Reserved.</p>
+      </footer>
     </div>
   );
 }
