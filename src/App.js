@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import SearchBar from './components/SearchBar';
 import WeatherCard from './components/WeatherCard';
 import Forecast from './components/Forecast';
@@ -11,6 +11,32 @@ function App() {
   const [weatherData, setWeatherData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+
+  const handleGeolocate = () => {
+    if (navigator.geolocation) {
+      setLoading(true);
+      setError(null);
+      setWeatherData(null);
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const { latitude, longitude } = position.coords;
+          fetchWeather(`${latitude},${longitude}`);
+        },
+        (err) => {
+          setError("Unable to retrieve location. Please grant permission or search manually.");
+          console.error(err);
+          setLoading(false);
+        }
+      );
+    } else {
+      setError("Geolocation is not supported by this browser.");
+    }
+  };
+
+  useEffect(() => {
+    // Fetch weather for user's location on initial load
+    handleGeolocate();
+  }, []); // Empty dependency array ensures this runs only once on mount
 
   const fetchWeather = async (location) => {
     if (!location) return;
@@ -39,13 +65,15 @@ function App() {
     <div className="App">
       <header className="App-header">
         <h1>Vibe Weather</h1>
-        <SearchBar onSearch={fetchWeather} />
+        <SearchBar onSearch={fetchWeather} onGeolocate={handleGeolocate} />
       </header>
       <main>
         {loading && <p className="info-text">Loading...</p>}
         {error && <p className="error-text">Error: {error}</p>}
         {!loading && !error && !weatherData && (
-          <p className="info-text">Enter a city to get the weather forecast.</p>
+          <p className="info-text">
+            Use the search bar or allow location access to see the weather.
+          </p>
         )}
         {weatherData && (
           <div className="weather-container">
