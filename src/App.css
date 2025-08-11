@@ -129,6 +129,7 @@
   padding: 1.5rem;
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  text-align: left;
 }
 
 .forecast-container h3 {
@@ -136,37 +137,183 @@
   border-bottom: 1px solid #eee;
   padding-bottom: 0.5rem;
   margin-bottom: 1rem;
+  color: #34495e;
 }
 
-.forecast-days {
+.forecast-list {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.forecast-day-item {
+  background: #f9f9f9;
+  border-radius: 6px;
+  overflow: hidden; /* To contain the border-radius on children */
+}
+
+.forecast-summary {
+  display: grid;
+  grid-template-columns: 1.5fr 1.5fr 2fr 0.5fr;
+  align-items: center;
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  font-family: inherit;
+  font-size: 1rem;
+  gap: 1rem;
+  transition: background-color 0.2s ease;
+}
+
+.forecast-summary:hover {
+  background-color: #f0f2f5;
+}
+
+.forecast-summary-date {
+  line-height: 1.2;
+}
+
+.forecast-summary-date .day-name {
+  font-weight: bold;
+  color: #2c3e50;
+  margin: 0;
+}
+
+.forecast-summary-date .short-date {
+  font-size: 0.9rem;
+  color: #7f8c8d;
+  margin: 0;
+}
+
+.forecast-summary-temp {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+.forecast-summary-temp img {
+  width: 40px;
+  height: 40px;
+}
+
+.forecast-summary-condition {
+  color: #34495e;
+  text-transform: capitalize;
+  margin: 0;
+  justify-self: start;
+}
+
+.forecast-toggle-icon {
+  justify-self: end;
+  transition: transform 0.3s ease;
+}
+
+.forecast-toggle-icon.expanded {
+  transform: rotate(180deg);
+}
+
+.forecast-details-expanded {
+  padding: 1rem 1.5rem 1.5rem;
+  background-color: #f0f2f5;
+  border-top: 1px solid #e0e0e0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   gap: 1rem;
 }
 
-.forecast-day {
-  flex: 1;
+.forecast-details-expanded .detail-item {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  padding: 1rem;
-  background: #f9f9f9;
-  border-radius: 6px;
+  gap: 0.25rem;
 }
 
-.forecast-date {
+.forecast-details-expanded .detail-item span:first-child {
+  font-size: 0.9rem;
+  color: #7f8c8d;
+}
+
+.forecast-details-expanded .detail-item span:last-child {
   font-weight: bold;
-  margin: 0 0 0.5rem 0;
-}
-
-.forecast-day img {
-  width: 50px;
-  height: 50px;
-}
-
-.forecast-temp {
-  margin-top: 0.5rem;
   font-size: 1rem;
+  color: #34495e;
+}
+
+/* Air Quality Styles */
+.air-quality {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  background: #f9f9f9;
+  border-radius: 8px;
+  text-align: left;
+}
+
+.air-quality h4 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+  color: #34495e;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 0.5rem;
+}
+
+.aqi-level {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+  padding: 1rem;
+  border-radius: 6px;
+  color: #fff;
+  margin-bottom: 1.5rem;
+}
+
+.aqi-text {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.aqi-value {
+  font-size: 1rem;
+}
+
+/* AQI Color Coding based on US EPA Index */
+.aqi-good { background-color: #009966; }
+.aqi-moderate { background-color: #ffde33; color: #333; }
+.aqi-unhealthy-sensitive { background-color: #ff9933; }
+.aqi-unhealthy { background-color: #cc0033; }
+.aqi-very-unhealthy { background-color: #660099; }
+.aqi-hazardous { background-color: #7e0023; }
+.aqi-unknown { background-color: #ccc; color: #333; }
+
+.pollutant-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 1rem;
+}
+
+.pollutant-item {
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  padding: 0.75rem;
+  border-radius: 4px;
+  border: 1px solid #eee;
+}
+
+.pollutant-name {
+  font-weight: bold;
+  color: #34495e;
+  font-size: 1rem;
+  margin-bottom: 0.25rem;
+}
+
+.pollutant-value {
+  font-size: 1rem;
+  color: #555;
 }
 
 

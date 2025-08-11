@@ -45,7 +45,7 @@ function App() {
     setWeatherData(null);
 
     try {
-      const response = await fetch(`${API_URL}?key=${API_KEY}&q=${location}&days=3&aqi=no&alerts=no`);
+      const response = await fetch(`${API_URL}?key=${API_KEY}&q=${location}&days=10&aqi=yes&alerts=yes`);
       const data = await response.json();
 
       if (response.ok) {
@@ -64,7 +64,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <h1>Vibe Weather</h1>
+        <h1>Weather App</h1>
         <SearchBar onSearch={fetchWeather} onGeolocate={handleGeolocate} />
       </header>
       <main>
