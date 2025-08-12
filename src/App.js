@@ -5,6 +5,7 @@ import Forecast from './components/Forecast';
 import ErrorMessage from './components/ErrorMessage';
 import SkeletonCard from './components/SkeletonCard';
 import SkeletonForecast from './components/SkeletonForecast';
+import WeatherAlerts from './components/WeatherAlerts';
 import UnitToggle from './components/UnitToggle';
 import { getWeatherBackgroundClass } from './utils/weatherUtils';
 import './App.css';
@@ -36,6 +37,8 @@ function App() {
 
       if (response.ok) {
         setWeatherData(data);
+        localStorage.setItem('lastSearchedCity', data.location.name);
+        console.log('Weather data fetched successfully:', data);
       } else {
         setError(data.error.message);
       }
@@ -69,8 +72,13 @@ function App() {
   }, [fetchWeather]);
 
   useEffect(() => {
-    handleGeolocate();
-  }, [handleGeolocate]);
+    const lastCity = localStorage.getItem('lastSearchedCity');
+    if (lastCity) {
+      fetchWeather(lastCity);
+    } else {
+      handleGeolocate();
+    }
+  }, [fetchWeather, handleGeolocate]);
 
   const backgroundClass = weatherData ? getWeatherBackgroundClass(weatherData.current.condition.text) : 'bg-default';
 
@@ -101,6 +109,7 @@ function App() {
         )}
         {weatherData && (
           <div className="weather-container">
+            <WeatherAlerts alerts={weatherData.alerts.alert} />
             <WeatherCard data={weatherData} unit={unit}/>
             <Forecast data={weatherData.forecast.forecastday} unit={unit}/>
           </div>
