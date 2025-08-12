@@ -6,6 +6,7 @@ import ErrorMessage from './components/ErrorMessage';
 import SkeletonCard from './components/SkeletonCard';
 import SkeletonForecast from './components/SkeletonForecast';
 import WeatherAlerts from './components/WeatherAlerts';
+import Favorites from './components/Favorites';
 import UnitToggle from './components/UnitToggle';
 import { getWeatherBackgroundClass } from './utils/weatherUtils';
 import './App.css';
@@ -17,11 +18,26 @@ function App() {
   const [weatherData, setWeatherData] = useState(null);
   const [loading, setLoading] = useState(true); // Start with loading true
   const [error, setError] = useState(null);
-  const [unit, setUnit] = useState('c');
+  const [unit, setUnit] = useState(() => localStorage.getItem('unitPreference') || 'c');
+  const [favorites, setFavorites] = useState([]);
 
   const handleUnitToggle = (selectedUnit) => {
-    setUnit('f'=== selectedUnit ? 'c' : 'f');
+    setUnit(selectedUnit === 'c' ? 'f' : 'c');
   };
+
+  const toggleFavorite = (cityName) => {
+    const updatedFavorites = favorites.includes(cityName)
+      ? favorites.filter((fav) => fav !== cityName)
+      : [...favorites, cityName];
+
+    setFavorites(updatedFavorites);
+    localStorage.setItem('favoriteCities', JSON.stringify(updatedFavorites));
+  };
+
+  useEffect(() => {
+    const savedFavorites = JSON.parse(localStorage.getItem('favoriteCities')) || [];
+    setFavorites(savedFavorites);
+  }, []);
 
   const fetchWeather = useCallback(async (location) => {
     if (!location) return;
@@ -71,6 +87,11 @@ function App() {
     }
   }, [fetchWeather]);
 
+  // Save unit preference to localStorage whenever it changes
+  useEffect(() => {
+    localStorage.setItem('unitPreference', unit);
+  }, [unit]);
+
   useEffect(() => {
     const lastCity = localStorage.getItem('lastSearchedCity');
     if (lastCity) {
@@ -93,6 +114,11 @@ function App() {
           <UnitToggle unit={unit} onToggle={handleUnitToggle} />
         </div>
         <SearchBar onSearch={fetchWeather} onGeolocate={handleGeolocate} />
+        <Favorites
+          favorites={favorites}
+          onSelect={fetchWeather}
+          onRemove={toggleFavorite}
+        />
       </header>
       <main>
         {loading && (
@@ -110,8 +136,8 @@ function App() {
         {weatherData && (
           <div className="weather-container">
             <WeatherAlerts alerts={weatherData.alerts.alert} />
-            <WeatherCard data={weatherData} unit={unit}/>
-            <Forecast data={weatherData.forecast.forecastday} unit={unit}/>
+            <WeatherCard data={weatherData} unit={unit} onToggleFavorite={toggleFavorite} favorites={favorites} />
+            <Forecast data={weatherData.forecast.forecastday} unit={unit} />
           </div>
         )}
       </main>

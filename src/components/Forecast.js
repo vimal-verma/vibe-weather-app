@@ -15,7 +15,7 @@ import {
 import { FaChevronDown } from 'react-icons/fa';
 import HourlyForecast from './HourlyForecast';
 
-const Forecast = ({ data, unit }) => {
+function Forecast({ data, unit }) {
   const [expandedIndex, setExpandedIndex] = useState(null);
 
   if (!data) return null;
@@ -25,8 +25,8 @@ const Forecast = ({ data, unit }) => {
   };
 
   const getForecastDetails = (day) => {
-    const windSpeed = unit === 'c' ? `${day.day.maxwind_kph} kph` : `${day.day.maxwind_mph} mph`;
-    const precip = unit === 'c' ? `${day.day.totalprecip_mm} mm` : `${day.day.totalprecip_in} in`;
+    const windSpeed = unit === 'c' ? `${day.day.maxwind_kph} kph` : `${Number(day.day.maxwind_mph).toFixed(1)} mph`;
+    const precip = unit === 'c' ? `${day.day.totalprecip_mm} mm` : `${Number(day.day.totalprecip_in).toFixed(2)} in`;
 
     return [
       { Icon: WiStrongWind, label: 'Max Wind', value: windSpeed },
@@ -94,4 +94,4 @@ const Forecast = ({ data, unit }) => {
   );
 }
 
-export default Forecast
+export default Forecast;

@@ -27,6 +27,6 @@ function HourlyForecast({ hourlyData, unit }) {
       </div>
     </div>
   );
-};
+}
 
 export default HourlyForecast;

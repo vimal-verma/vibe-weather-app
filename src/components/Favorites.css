@@ -1,0 +1,59 @@
+.favorites-container {
+  margin-top: 1.5rem;
+  width: 100%;
+  max-width: 600px;
+  padding: 1rem;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+}
+
+.favorites-title {
+  margin: 0 0 0.75rem 0;
+  color: #fff;
+  text-align: left;
+  font-size: 1rem;
+}
+
+.favorites-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.favorite-item {
+  display: flex;
+  align-items: center;
+  background-color: #f0f2f5;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid #d1d5db;
+}
+
+.favorite-city-button {
+  background: none;
+  border: none;
+  padding: 6px 12px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  color: #34495e;
+  transition: background-color 0.2s;
+}
+
+.favorite-city-button:hover {
+  background-color: #e2e8f0;
+}
+
+.favorite-remove-button {
+  background: none;
+  border: none;
+  border-left: 1px solid #d1d5db;
+  padding: 6px 8px;
+  cursor: pointer;
+  color: #7f8c8d;
+  display: flex;
+  align-items: center;
+}
+
+.favorite-remove-button:hover {
+  color: #e74c3c;
+}

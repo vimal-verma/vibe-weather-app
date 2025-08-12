@@ -7,17 +7,19 @@ import {
   WiDaySunny,
 } from 'react-icons/wi';
 import { MdVisibility } from 'react-icons/md';
+import { FaStar, FaRegStar } from 'react-icons/fa';
 import { getAqiInfo } from '../utils/weatherUtils';
 
-const WeatherCard = ({ data, unit }) => {
+function WeatherCard({ data, unit, onToggleFavorite, favorites }) {
   if (!data) return null;
 
   const { location, current } = data;
   const aqiIndex = current.air_quality ? current.air_quality['us-epa-index'] : null;
   const aqiInfo = aqiIndex ? getAqiInfo(aqiIndex) : { level: 'N/A', className: 'aqi-unknown' };
-  
+
   const temp = unit === 'c' ? Math.round(current.temp_c) : Math.round(current.temp_f);
   const tempUnit = unit === 'c' ? '°C' : '°F';
+  const feelsLikeTemp = unit === 'c' ? Math.round(current.feelslike_c) : Math.round(current.feelslike_f);
   const windSpeed = unit === 'c' ? `${current.wind_kph} kph` : `${current.wind_mph} mph`;
   const visibility = unit === 'c' ? `${current.vis_km} km` : `${current.vis_miles} miles`;
 
@@ -32,11 +34,21 @@ const WeatherCard = ({ data, unit }) => {
 
   return (
     <div className="weather-card">
-      <h2>{location.name}, {location.country}</h2>
+      <div className="weather-card-header">
+        <h2>{location.name}, {location.country}</h2>
+        <button
+          className="favorite-button"
+          onClick={() => onToggleFavorite(location.name)}
+          title={favorites.includes(location.name) ? 'Remove from favorites' : 'Add to favorites'}
+        >
+          {favorites.includes(location.name) ? <FaStar color="#ffc107" /> : <FaRegStar />}
+        </button>
+      </div>
       <div className="weather-main">
         <img src={current.condition.icon} alt={current.condition.text} />
         <p className="temperature">{temp}{tempUnit}</p>
       </div>
+      <p className="feels-like">Feels like: {feelsLikeTemp}{tempUnit}</p>
       <p className="condition">{current.condition.text}</p>
       <div className="weather-details-grid">
         {details.map(({ Icon, label, value }) => (
@@ -86,4 +98,4 @@ const WeatherCard = ({ data, unit }) => {
   );
 }
 
-export default WeatherCard
+export default WeatherCard;
