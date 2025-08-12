@@ -1,10 +1,5 @@
 .favorites-container {
-  margin-top: 1.5rem;
   width: 100%;
-  max-width: 600px;
-  padding: 1rem;
-  background: rgba(0, 0, 0, 0.2);
-  border-radius: 8px;
 }
 
 .favorites-title {
@@ -12,6 +7,23 @@
   color: #fff;
   text-align: left;
   font-size: 1rem;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #ffc107; /* Gold color for the star */
+}
+
+.favorites-title svg {
+  vertical-align: middle;
+}
+
+.no-favorites-message {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.8);
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+  text-align: left;
+  font-style: italic;
 }
 
 .favorites-list {
@@ -23,10 +35,11 @@
 .favorite-item {
   display: flex;
   align-items: center;
-  background-color: #f0f2f5;
+  background-color: rgba(255, 255, 255, 0.9);
   border-radius: 16px;
   overflow: hidden;
-  border: 1px solid #d1d5db;
+  border: 1px solid transparent;
+  transition: all 0.2s ease;
 }
 
 .favorite-city-button {
@@ -40,7 +53,7 @@
 }
 
 .favorite-city-button:hover {
-  background-color: #e2e8f0;
+  background-color: #fff;
 }
 
 .favorite-remove-button {
@@ -52,8 +65,14 @@
   color: #7f8c8d;
   display: flex;
   align-items: center;
+  transition: color 0.2s ease;
 }
 
 .favorite-remove-button:hover {
   color: #e74c3c;
+}
+
+.favorite-item:hover {
+  border-color: #4a90e2;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
