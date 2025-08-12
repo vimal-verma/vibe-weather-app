@@ -1,0 +1,61 @@
+.hourly-forecast-container {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #d1d5db;
+}
+
+.hourly-forecast-scroll {
+  display: flex;
+  overflow-x: auto;
+  gap: 1rem;
+  padding-bottom: 1rem; /* For scrollbar visibility */
+  scrollbar-width: thin;
+  scrollbar-color: #4a90e2 #f0f2f5;
+}
+
+/* For Webkit browsers like Chrome, Safari */
+.hourly-forecast-scroll::-webkit-scrollbar {
+  height: 8px;
+}
+
+.hourly-forecast-scroll::-webkit-scrollbar-track {
+  background: #f0f2f5;
+  border-radius: 4px;
+}
+
+.hourly-forecast-scroll::-webkit-scrollbar-thumb {
+  background-color: #4a90e2;
+  border-radius: 4px;
+}
+
+.hourly-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-width: 80px;
+  padding: 0.75rem 0.5rem;
+  background-color: #fff;
+  border-radius: 8px;
+  border: 1px solid #eee;
+}
+
+.hourly-time {
+  font-size: 0.9rem;
+  font-weight: bold;
+  margin: 0 0 0.5rem 0;
+  color: #34495e;
+}
+
+.hourly-icon {
+  width: 40px;
+  height: 40px;
+  margin-bottom: 0.5rem;
+}
+
+.hourly-temp {
+  font-size: 1.1rem;
+  font-weight: bold;
+  margin: 0;
+  color: #2c3e50;
+}

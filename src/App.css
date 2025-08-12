@@ -37,6 +37,12 @@
   gap: 1rem;
 }
 
+.header-controls {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
 .app-logo {
   width: 60px;
   height: 60px;
@@ -304,16 +310,23 @@
 .forecast-toggle-icon {
   justify-self: end;
   transition: transform 0.3s ease;
+  color: #7f8c8d;
+}
+.forecast-toggle-icon svg {
+  vertical-align: middle;
 }
 
 .forecast-toggle-icon.expanded {
   transform: rotate(180deg);
 }
 
-.forecast-details-expanded {
+.forecast-expanded-content {
   padding: 1rem 1.5rem 1.5rem;
   background-color: #f0f2f5;
   border-top: 1px solid #e0e0e0;
+}
+
+.forecast-details-expanded {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
   gap: 1rem;

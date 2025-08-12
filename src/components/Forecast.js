@@ -12,8 +12,10 @@ import {
   WiMoonset,
   WiNightClear,
 } from 'react-icons/wi';
+import { FaChevronDown } from 'react-icons/fa';
+import HourlyForecast from './HourlyForecast';
 
-function Forecast({ data }) {
+const Forecast = ({ data, unit }) => {
   const [expandedIndex, setExpandedIndex] = useState(null);
 
   if (!data) return null;
@@ -22,90 +24,74 @@ function Forecast({ data }) {
     setExpandedIndex(expandedIndex === index ? null : index);
   };
 
+  const getForecastDetails = (day) => {
+    const windSpeed = unit === 'c' ? `${day.day.maxwind_kph} kph` : `${day.day.maxwind_mph} mph`;
+    const precip = unit === 'c' ? `${day.day.totalprecip_mm} mm` : `${day.day.totalprecip_in} in`;
+
+    return [
+      { Icon: WiStrongWind, label: 'Max Wind', value: windSpeed },
+      { Icon: WiHumidity, label: 'Avg Humidity', value: `${day.day.avghumidity}%` },
+      { Icon: WiDaySunny, label: 'UV Index', value: day.day.uv },
+      { Icon: WiRain, label: 'Rain Chance', value: `${day.day.daily_chance_of_rain}%` },
+      { Icon: WiSnow, label: 'Snow Chance', value: `${day.day.daily_chance_of_snow}%` },
+      { Icon: WiRaindrops, label: 'Precipitation', value: precip },
+      { Icon: WiSunrise, label: 'Sunrise', value: day.astro.sunrise },
+      { Icon: WiSunset, label: 'Sunset', value: day.astro.sunset },
+      { Icon: WiMoonrise, label: 'Moonrise', value: day.astro.moonrise },
+      { Icon: WiMoonset, label: 'Moonset', value: day.astro.moonset },
+      { Icon: WiNightClear, label: 'Moon Phase', value: day.astro.moon_phase },
+    ];
+  };
+
   return (
     <div className="forecast-container">
       <h3>10-Day Forecast</h3>
       <div className="forecast-list">
-        {data.map((day, index) => (
-          <div key={day.date_epoch} className="forecast-day-item">
-            <button className="forecast-summary" onClick={() => handleToggle(index)}>
+        {data.map((day, index) => {
+          const isExpanded = expandedIndex === index;
+          const maxTemp = unit === 'c' ? Math.round(day.day.maxtemp_c) : Math.round(day.day.maxtemp_f);
+          const minTemp = unit === 'c' ? Math.round(day.day.mintemp_c) : Math.round(day.day.mintemp_f);
+
+          return (
+            <div key={day.date_epoch} className="forecast-day-item">
+            <button
+              className="forecast-summary"
+              onClick={() => handleToggle(index)}
+              aria-expanded={isExpanded}
+              aria-controls={`forecast-details-${index}`}
+            >
               <div className="forecast-summary-date">
                 <p className="day-name">{new Date(day.date).toLocaleDateString('en-US', { weekday: 'long' })}</p>
                 <p className="short-date">{new Date(day.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</p>
               </div>
               <div className="forecast-summary-temp">
                 <img src={day.day.condition.icon} alt={day.day.condition.text} />
-                <span>{Math.round(day.day.maxtemp_c)}° / {Math.round(day.day.mintemp_c)}°</span>
+                <span>{maxTemp}° / {minTemp}°</span>
               </div>
               <p className="forecast-summary-condition">{day.day.condition.text}</p>
-              <span className={`forecast-toggle-icon ${expandedIndex === index ? 'expanded' : ''}`}>
-                ▼
+              <span className={`forecast-toggle-icon ${isExpanded ? 'expanded' : ''}`}>
+                <FaChevronDown />
               </span>
             </button>
-            {expandedIndex === index && (
-              <div className="forecast-details-expanded">
-                <div className="detail-item">
-                  <WiStrongWind />
-                  <p>Max Wind</p>
-                  <p>{day.day.maxwind_kph} kph</p>
+            {isExpanded && (
+              <div className="forecast-expanded-content" id={`forecast-details-${index}`}>
+                <div className="forecast-details-expanded">
+                  {getForecastDetails(day).map(({ Icon, label, value }) => (
+                    <div key={label} className="detail-item">
+                      <Icon />
+                      <p>{label}</p>
+                      <p>{value}</p>
+                    </div>
+                  ))}
                 </div>
-                <div className="detail-item">
-                  <WiHumidity />
-                  <p>Avg Humidity</p>
-                  <p>{day.day.avghumidity}%</p>
-                </div>
-                <div className="detail-item">
-                  <WiDaySunny />
-                  <p>UV Index</p>
-                  <p>{day.day.uv}</p>
-                </div>
-                <div className="detail-item">
-                  <WiRain />
-                  <p>Rain Chance</p>
-                  <p>{day.day.daily_chance_of_rain}%</p>
-                </div>
-                <div className="detail-item">
-                  <WiSnow />
-                  <p>Snow Chance</p>
-                  <p>{day.day.daily_chance_of_snow}%</p>
-                </div>
-                <div className="detail-item">
-                  <WiSunrise />
-                  <p>Sunrise</p>
-                  <p>{day.astro.sunrise}</p>
-                </div>
-                <div className="detail-item">
-                  <WiSunset />
-                  <p>Sunset</p>
-                  <p>{day.astro.sunset}</p>
-                </div>
-                <div className="detail-item">
-                  <WiRaindrops />
-                  <p>Precipitation</p>
-                  <p>{day.day.totalprecip_mm} mm</p>
-                </div>
-                <div className="detail-item">
-                  <WiMoonrise />
-                  <p>Moonrise</p>
-                  <p>{day.astro.moonrise}</p>
-                </div>
-                <div className="detail-item">
-                  <WiMoonset />
-                  <p>Moonset</p>
-                  <p>{day.astro.moonset}</p>
-                </div>
-                <div className="detail-item">
-                  <WiNightClear />
-                  <p>Moon Phase</p>
-                  <p>{day.astro.moon_phase}</p>
-                </div>
+                <HourlyForecast hourlyData={day.hour} unit={unit} />
               </div>
             )}
           </div>
-        ))}
+        )})}
       </div>
     </div>
   );
 }
 
-export default Forecast;
+export default Forecast

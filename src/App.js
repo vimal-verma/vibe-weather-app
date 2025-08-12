@@ -5,6 +5,7 @@ import Forecast from './components/Forecast';
 import ErrorMessage from './components/ErrorMessage';
 import SkeletonCard from './components/SkeletonCard';
 import SkeletonForecast from './components/SkeletonForecast';
+import UnitToggle from './components/UnitToggle';
 import { getWeatherBackgroundClass } from './utils/weatherUtils';
 import './App.css';
 
@@ -15,6 +16,11 @@ function App() {
   const [weatherData, setWeatherData] = useState(null);
   const [loading, setLoading] = useState(true); // Start with loading true
   const [error, setError] = useState(null);
+  const [unit, setUnit] = useState('c');
+
+  const handleUnitToggle = (selectedUnit) => {
+    setUnit('f'=== selectedUnit ? 'c' : 'f');
+  };
 
   const fetchWeather = useCallback(async (location) => {
     if (!location) return;
@@ -75,6 +81,9 @@ function App() {
           <img src="/icon.jpg" alt="Weather App Logo" className="app-logo" />
           <h1>Vibe Weather</h1>
         </div>
+        <div className="header-controls">
+          <UnitToggle unit={unit} onToggle={handleUnitToggle} />
+        </div>
         <SearchBar onSearch={fetchWeather} onGeolocate={handleGeolocate} />
       </header>
       <main>
@@ -92,8 +101,8 @@ function App() {
         )}
         {weatherData && (
           <div className="weather-container">
-            <WeatherCard data={weatherData} />
-            <Forecast data={weatherData.forecast.forecastday} />
+            <WeatherCard data={weatherData} unit={unit}/>
+            <Forecast data={weatherData.forecast.forecastday} unit={unit}/>
           </div>
         )}
       </main>

@@ -9,52 +9,43 @@ import {
 import { MdVisibility } from 'react-icons/md';
 import { getAqiInfo } from '../utils/weatherUtils';
 
-function WeatherCard({ data }) {
+const WeatherCard = ({ data, unit }) => {
   if (!data) return null;
 
   const { location, current } = data;
   const aqiIndex = current.air_quality ? current.air_quality['us-epa-index'] : null;
   const aqiInfo = aqiIndex ? getAqiInfo(aqiIndex) : { level: 'N/A', className: 'aqi-unknown' };
   
+  const temp = unit === 'c' ? Math.round(current.temp_c) : Math.round(current.temp_f);
+  const tempUnit = unit === 'c' ? '°C' : '°F';
+  const windSpeed = unit === 'c' ? `${current.wind_kph} kph` : `${current.wind_mph} mph`;
+  const visibility = unit === 'c' ? `${current.vis_km} km` : `${current.vis_miles} miles`;
+
+  const details = [
+    { Icon: WiHumidity, label: 'Humidity', value: `${current.humidity}%` },
+    { Icon: WiStrongWind, label: 'Wind Speed', value: windSpeed },
+    { Icon: WiBarometer, label: 'Pressure', value: `${current.pressure_mb} mb` },
+    { Icon: MdVisibility, label: 'Visibility', value: visibility },
+    { Icon: WiDaySunny, label: 'UV Index', value: current.uv },
+    { Icon: WiCloudy, label: 'Cloud Cover', value: `${current.cloud}%` },
+  ];
+
   return (
     <div className="weather-card">
       <h2>{location.name}, {location.country}</h2>
       <div className="weather-main">
         <img src={current.condition.icon} alt={current.condition.text} />
-        <p className="temperature">{Math.round(current.temp_c)}°C</p>
+        <p className="temperature">{temp}{tempUnit}</p>
       </div>
       <p className="condition">{current.condition.text}</p>
       <div className="weather-details-grid">
-        <div className="detail-item-card">
-          <WiHumidity className="detail-icon" />
-          <p className="detail-label">Humidity</p>
-          <p className="detail-value">{current.humidity}%</p>
-        </div>
-        <div className="detail-item-card">
-          <WiStrongWind className="detail-icon" />
-          <p className="detail-label">Wind Speed</p>
-          <p className="detail-value">{current.wind_kph} kph</p>
-        </div>
-        <div className="detail-item-card">
-          <WiBarometer className="detail-icon" />
-          <p className="detail-label">Pressure</p>
-          <p className="detail-value">{current.pressure_mb} mb</p>
-        </div>
-        <div className="detail-item-card">
-          <MdVisibility className="detail-icon" />
-          <p className="detail-label">Visibility</p>
-          <p className="detail-value">{current.vis_km} km</p>
-        </div>
-        <div className="detail-item-card">
-          <WiDaySunny className="detail-icon" />
-          <p className="detail-label">UV Index</p>
-          <p className="detail-value">{current.uv}</p>
-        </div>
-        <div className="detail-item-card">
-          <WiCloudy className="detail-icon" />
-          <p className="detail-label">Cloud Cover</p>
-          <p className="detail-value">{current.cloud}%</p>
-        </div>
+        {details.map(({ Icon, label, value }) => (
+          <div key={label} className="detail-item-card">
+            <Icon className="detail-icon" />
+            <p className="detail-label">{label}</p>
+            <p className="detail-value">{value}</p>
+          </div>
+        ))}
       </div>
       {current.air_quality && (
         <div className="air-quality">
@@ -95,4 +86,4 @@ function WeatherCard({ data }) {
   );
 }
 
-export default WeatherCard;
+export default WeatherCard
