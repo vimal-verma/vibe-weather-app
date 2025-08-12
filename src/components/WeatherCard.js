@@ -7,16 +7,7 @@ import {
   WiDaySunny,
 } from 'react-icons/wi';
 import { MdVisibility } from 'react-icons/md';
-
-const getAqiInfo = (aqi) => {
-  if (aqi === 1) return { level: 'Good', className: 'aqi-good' };
-  if (aqi === 2) return { level: 'Moderate', className: 'aqi-moderate' };
-  if (aqi === 3) return { level: 'Unhealthy for sensitive groups', className: 'aqi-unhealthy-sensitive' };
-  if (aqi === 4) return { level: 'Unhealthy', className: 'aqi-unhealthy' };
-  if (aqi === 5) return { level: 'Very Unhealthy', className: 'aqi-very-unhealthy' };
-  if (aqi === 6) return { level: 'Hazardous', className: 'aqi-hazardous' };
-  return { level: 'Unknown', className: 'aqi-unknown' };
-};
+import { getAqiInfo } from '../utils/weatherUtils';
 
 function WeatherCard({ data }) {
   if (!data) return null;
