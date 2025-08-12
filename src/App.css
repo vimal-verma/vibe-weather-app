@@ -620,3 +620,8 @@ main {
   width: 40px;
   height: 40px;
 }
+
+.github-badge{
+  cursor: pointer;
+  margin-top: 15px;
+}

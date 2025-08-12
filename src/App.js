@@ -112,6 +112,7 @@ function App() {
         </div>
         <div className="header-controls">
           <UnitToggle unit={unit} onToggle={handleUnitToggle} />
+          <img src="https://img.shields.io/github/stars/vimal-verma/vibe-weather-app??style=flat" alt="Weather App Logo" className="github-badge" onClick={() => window.open('https://github.com/vimal-verma/vibe-weather-app', '_blank')}/>
         </div>
         <SearchBar onSearch={fetchWeather} onGeolocate={handleGeolocate} />
         <Favorites
